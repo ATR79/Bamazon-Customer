@@ -25,8 +25,9 @@ var seeTable = function () {
     connection.query("SELECT * FROM products", function (err, res) {
             if (err) throw err;
             console.table(res);
+            purchase()
         },
-        purchase()
+        //purchase()
     )};
 
     //prompt purchase function and inquiry
