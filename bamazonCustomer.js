@@ -27,7 +27,7 @@ var seeTable = function () {
             console.table(res);
         },
         purchase()
-    );
+    )};
 
     //prompt purchase function and inquiry
     function purchase() {
@@ -43,7 +43,7 @@ var seeTable = function () {
             //product chosen
             .then(function (answer) {
                 var chosenItem;
-                for (var i = 0; i < res.length; i++) {
+                for (var i = 0; i < answer.length; i++) {
                     if (res[i].item_id === answer.choice) {
                         chosenItem = res[i];
                     }
@@ -70,7 +70,7 @@ var seeTable = function () {
                 }
             });
     }
-}
+
 
 
 

@@ -4,15 +4,15 @@ USE bamazon_db;
 
 CREATE TABLE products (
     item_id INT NOT NULL AUTO_INCREMENT,
-    product VARCHAR (50) NOT NULL,
-    department VARCHAR (50) NOT NULL,
+    product_name VARCHAR (50) NOT NULL,
+    department_name VARCHAR (50) NOT NULL,
     price DECIMAL (10,4) NOT NULL,
-    stockQuantity INTEGER (10) NOT NULL,
+    stock_quantity INTEGER (10) NOT NULL,
     primary key (item_id)
 );
 
 
-INSERT INTO products (product, department, price, stockQuantity)
+INSERT INTO products (product_name, department_name, price, stock_quantity)
 VALUES ("Paperclips", "Office Supplies", 9.97, 3579),
     ("Tape Measure", "Hardware", 11.17, 293),
     ("Black Tea", "Grocery", 3.21, 517),
@@ -24,4 +24,4 @@ VALUES ("Paperclips", "Office Supplies", 9.97, 3579),
     ("Puppy", "Pet Supplies", 1213.51, 7773),
     ("Tesla", "Cars", 59.99, 1111);
 
-SELECT * FROM bamazon.products;
+SELECT * FROM bamazon_db.products;
