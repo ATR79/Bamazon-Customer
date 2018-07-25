@@ -28,49 +28,60 @@ var seeTable = function () {
             purchase()
         },
         //purchase()
-    )};
+    )
+};
 
-    //prompt purchase function and inquiry
-    function purchase() {
-        inquirer.prompt([{
-                name: 'ID',
-                type: 'input',
-                message: "What is the ID of the item you would like to purchase? [Quit with Q]"
-            }, {
-                name: 'Quantity',
-                type: 'input',
-                message: "How many would you like? [Quit with Q]"
-            }])
-            //product chosen
-            .then(function (answer) {
-                var chosenItem;
-                for (var i = 0; i < answer.length; i++) {
-                    if (res[i].item_id === answer.choice) {
-                        chosenItem = res[i];
-                    }
-                }
+//prompt purchase function and inquiry
+function purchase() {
+    inquirer.prompt([{
+            name: 'id',
+            type: 'input',
+            message: "What is the ID of the item you would like to purchase? [Quit with Q]"
+        }, {
+            name: 'quantity',
+            type: 'input',
+            message: "How many would you like? [Quit with Q]"
+        }])
+        //product chosen
+        .then(function (answer) {
+            //console.log(res.length);
+            console.log(answer);
+            // for (var i = 0; i < answer.length; i++) {
+            //     if (answer.id == products.id) {
+            //         console.log(res[i]);
+            //         chosenItem = res[i];
+            //     }
+            // }
 
-                //update product quantity
-                if (chosenItem.stock_quantity < parseInt(answer.number)) {
-                    connection.query("UPDATE products SET", [{
-                                stock_quantity: number
-                            },
-                            {
-                                item_id: chosenItem
+            connection.query("SELECT * FROM products WHERE item_id = ? ",
+                [answer.id],
+                function (err, res) {
+                    if (err) throw err;
+                    console.log(res);
+                    var chosenItem = res[0]; 
+
+                    //update product quantity
+                    if (chosenItem.stock_quantity < parseInt(answer.number)) {
+                        connection.query("UPDATE products SET ? WHERE ?", [{
+                                    stock_quantity: number
+                                },
+                                {
+                                    item_id: chosenItem
+                                }
+                            ],
+                            function (error) {
+                                if (error) throw err;
+                                console.log("Purchased!");
+                                //display();
                             }
-                        ],
-                        function (error) {
-                            if (error) throw err;
-                            console.log("Purchased!");
-                            display();
-                        }
-                    );
-                } else {
-                    console.log("Sorry, we do not have that. Please make another selection.");
-                    display();
-                }
-            });
-    }
+                        );
+                    } else {
+                        console.log("Sorry, we do not have that. Please make another selection.");
+                        //display();
+                    }
+                });
+        }, )
+}
 
 
 
